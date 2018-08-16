@@ -23,9 +23,9 @@ export const renderSearchResult = (results, title ,page = 1, videoPerPage = 12) 
 };
 
 const renderItems = (items) => {
-    items.forEach(e => {
+    items.forEach((e, i) => {
         const markup = `
-        <div class="result_item" data-videoId="${e.videoID}">
+        <div class="result_item" data-videoId="${e.videoID}" data-videoIndex="${i}">
             <div class="image" style="background-image: url(${e.thumbnails});"></div>
             <div class="overlay"></div>
             <div class="text"><p class="title_search" >${e.title}</p></div>

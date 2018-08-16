@@ -19,9 +19,9 @@ export const renderRecommended = (results, title ,page = 1, videoPerPage = 12) =
 };
 
 const renderItems = (items) => {
-    items.forEach(e => {
+    items.forEach((e,i) => {
         const markup = `
-        <div class="recommended_item" data-videoId="${e.videoID}">
+        <div class="recommended_item" data-videoId="${e.videoID}"  data-videoIndex="${i}">
             <div class="image" style="background-image: url(${e.thumbnails});"></div>
             <div class="overlay"></div>
             <div class="text"><p class="title_recommended" >${e.title}</p></div>
@@ -65,10 +65,10 @@ const renderButtons = (page, numResults, videoPerPage) => {
 export const clearResult = () => elements.recommended.innerHTML = '';
 
 
-export const showSearchResult = () => {
+export const showRecommend = () => {
     elements.recommended.classList.replace('hide', 'show');
 };
 
-export const hideSearchResult = () => {
+export const hideRecommend = () => {
     elements.recommended.classList.replace('show', 'hide');
 };

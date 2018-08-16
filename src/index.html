@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i|Roboto+Mono:100,100i,300,300i,400,400i,500,500i,700,700i|Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/loader.css">
     <title>Real</title>
 </head>
@@ -51,13 +52,15 @@
                     </form>
                 </div>
                 <div class="column column_4"></div>
-                <div class="column column_5"></div>
+                <div class="column column_5 account">
+                    <i class="material-icons">account_circle</i>
+                </div>
             </div>
 
         </div>
 
         <!-- Search Result -->
-        <div class="searchResult hide">
+        <div class="searchResult">
 
             <!-- 
             <div class="container">
@@ -88,6 +91,19 @@
 
             </div> 
             -->
+
+        </div>
+
+        <!-- Auth -->
+        <div class="auth">
+
+            <div class="container">
+                <h1>Welcome to My Awesome App</h1>
+                <div id="firebaseui-auth-container"></div>
+                <button>register</button>
+                <div id="loader">Loading...</div>
+                
+            </div>
 
         </div>
 
@@ -125,7 +141,7 @@
         </div> 
 
         <!-- Video Pannel -->
-        <div class="pannelControl hide">
+        <div class="pannelControl">
             <div class="row">
                 
                 <!-- Left pannel -->
@@ -195,7 +211,7 @@
         </div>
 
         <!-- Subtitle display -->
-        <div class="subtitle hide">
+        <div class="subtitle">
             <!-- 
             <div class="container" data-page="">
                 <p  class="subtitle_text" data-page="">Returns a collection of search results that match the query parameters specified in the API request.</p>

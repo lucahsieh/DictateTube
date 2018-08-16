@@ -14,7 +14,7 @@ export default class Transcript{
             // get XML file from YouTube.
             const xmlObj = await axios(`https://video.google.com/timedtext?lang=${this.lang}&v=${this.videoID}`);
             const jsObj = this.convertXMLtoJsObj(xmlObj);
-            this.subtitles = this.createTranscriptArr(jsObj);
+            return this.createTranscriptArr(jsObj);
         } catch (error) {
             console.log(error);
         }

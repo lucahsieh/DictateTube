@@ -20,7 +20,6 @@ export default class Recommend{
         const snapeshot = await this.db.collection('recommendationList').get();
 
         const videos = [];
-        let hi;
         snapeshot.forEach((e) => {
             const temp = {
                 title: e.data().title,
@@ -31,7 +30,6 @@ export default class Recommend{
             videos.push(temp);
         })
         return videos;        
-        
     }
 
 }

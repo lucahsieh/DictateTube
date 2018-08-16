@@ -10,6 +10,8 @@ import * as pannelView from './view/pannelView';
 import Recommend from './module/Recommend';
 import * as recommendView from './view/recommendView';
 import firebase from 'firebase';
+import firebaseui from 'firebaseui';
+import Auth from './module/Auth';
 require("firebase/firestore");
 
 const state = {
@@ -17,6 +19,12 @@ const state = {
 
 // test
 window.state = state;
+
+window.addEventListener('load', async() => {
+    setUpEnvironment();
+    controlRecommend();
+    controlAuth();
+});
 
 
 const setUpEnvironment = () => {
@@ -28,7 +36,16 @@ const setUpEnvironment = () => {
       
     // Initialize Cloud Firestore through Firebase
     state.db = firebase.firestore();
+
+
 }
+
+const controlAuth = () => {
+    if(!state.auth) state.auth = new Auth();
+    state.auth.initAuth();
+};
+
+
 
 
 /**
@@ -36,15 +53,30 @@ const setUpEnvironment = () => {
  */
 const controlRecommend = async () => {
     if(!state.recommend) state.recommend = new Recommend(state.db);
-    const recommedList = await state.recommend.getRecommendFromFirebase();
-    console.log(recommedList);
-    state.recommedList;
-}
+    state.recommend.list = await state.recommend.getRecommendFromFirebase();
+    recommendView.renderRecommended(state.recommend.list, 'recommendations');
+};
 
-window.addEventListener('load', async() => {
-    setUpEnvironment();
-    controlRecommend();
-});
+elements.recommended.addEventListener('click', async(e) => {
+    const btn = e.target.closest('.recommended__btn');
+    const video = e.target.closest('.recommended_item');
+    if(btn) {
+        // Go to the page
+        const page = parseInt(btn.dataset.goto);
+        recommendView.clearResult();
+        recommendView.renderSearchResult(state.recommend.list, 'recommendations', page);
+    } else if (video) {
+
+        recommendView.hideRecommend();
+
+        state.currentVideo = state.recommend.list[parseInt(video.dataset.videoindex)];
+        await controlTranscript();
+        controlPannel();
+        await controlVideo();
+        pannelView.updatePlayButton();
+        
+    }
+})
 
 /** 
  * SEARCH CONTROLLER
@@ -97,8 +129,8 @@ elements.searchResult.addEventListener('click', async(e) => {
 
         searchView.hideSearchResult();
 
-        state.videoID = video.dataset.videoid;
-        console.log(state.videoID + ' blcikced video');
+        state.currentVideo = state.recommend.list[parseInt(video.dataset.videoindex)];
+        
         await controlTranscript();
         controlPannel();
         await controlVideo();
@@ -116,13 +148,11 @@ elements.searchResult.addEventListener('click', async(e) => {
 const controlVideo = async () => {
     if ( !state.video || !state.video.player1 && !state.video.player2){
         // ifram is not loaded
-        console.log(state.videoID+' bereCreatVideo');
         state.video = new Video();
-        state.video.loadPlayer(state.videoID);
+        state.video.loadPlayer(state.currentVideo.videoID);
     } else {
         // palyer1 and player2 had been created, so update it by new id
-        console.log(state.videoID+' knowing had and update');
-        state.video.replaceVideo(state.videoID);
+        state.video.replaceVideo(state.currentVideo.videoID);
     }
 }
 
@@ -131,10 +161,10 @@ const controlVideo = async () => {
  */
 const controlTranscript = async () => {
 
-    state.transcript = new Transcript(state.videoID,"en");
+    state.transcript = new Transcript(state.currentVideo.videoID,"en");
     try {
         // Load subtitle from database and save to state.text(array)
-        await state.transcript.getTranscript();
+        state.currentVideo.subList = await state.transcript.getTranscript();
 
     } catch(error) {
         alert('Error: cannot load transcript!');
@@ -148,8 +178,8 @@ const controlTranscript = async () => {
 
 /// TEST
 // window.addEventListener('load', async()=>{
-//     state.videoID = 'vzSHcyXfNPw';
-//     elements.body.setAttribute('data-videoID', state.videoID);
+//     state.currentVideo.videoID = 'vzSHcyXfNPw';
+//     elements.body.setAttribute('data-videoID', state.currentVideo.videoID);
 //     // searchView.clearResult();
 //     await controlVideo();
 //     await controlTranscript();
@@ -163,7 +193,7 @@ const controlTranscript = async () => {
  * PANNEL CONTROLLER
  */
 const controlPannel = () => {
-    state.pannel = new Pannel(state.transcript)
+    state.pannel = new Pannel(state.currentVideo)
     if (!state.video || !state.video.player1 && !state.video.player2) {
         pannelView.createPannel(state.pannel.subList, state.pannel.page);
         pannelView.showPannel();
@@ -218,7 +248,7 @@ window.addEventListener('keypress', (e) => {
     const keyInPage = e.path[0].dataset.subtitlepage;
     const pageNum = state.pannel.pageNum;
     const subList = state.pannel.subList;
-    if(keyInPage == pageNum) {    
+    if(keyInPage == pageNum && state.pannel.subList) {    
         const position = state.pannel.getQuestionPosition();
         let res = state.pannel.checkAns(e.key, position);
         switch(res) {

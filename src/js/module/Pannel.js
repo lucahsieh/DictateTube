@@ -1,9 +1,11 @@
 import { elements } from "../view/base";
 
 export default class Pannel{
-    constructor(transcript, pageNum = 0) {
-        this.videoId = transcript.videoID;
-        this.subList = transcript.subtitles;
+    constructor(currentVideo, pageNum = 0) {
+        this.videoId = currentVideo.videoID;
+        this.subList = currentVideo.subList;
+        this.thumbnails = currentVideo.thumbnails;
+        this.title = currentVideo.title;
         this.pageNum = pageNum;
         this.counter = 0;
         this.NextPart = null;
