@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i|Roboto+Mono:100,100i,300,300i,400,400i,500,500i,700,700i|Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/loader.css">
+    <title>Real</title>
+</head>
+<body class="body" data-subtitlepage="" data-videoID="">
+    <!-- Loader -->
+    <div class="loader">
+
+        <!-- 
+        <div class="loader-background">
+            <div class="group"> 
+                    <div class="bigSqr">
+                    <div class="square first"></div>
+                    <div class="square second"></div>
+                    <div class="square third"></div>
+                    <div class="square fourth"></div>
+                    </div>
+                    <div class="text">loading</div>
+            </div>
+        </div> -->
+
+    </div>
+    <div class="wraper">
+        
+
+        <!-- Background Video -->
+        <div class="video-background">
+            <div class="video-foreground">
+                <div id="player1"></div>
+            </div>
+        </div>
+        
+        <!-- Header -->
+        <div class="header">
+
+            <div class="container">
+                <div class="column column_1">
+                    <img class="logo" src="pic/logo.png" alt="logo">
+                </div>
+                <div class="column column_2"></div>
+                <div class="column column_3">
+                    <form>
+                        <input class="text search_text" type="text" placeholder="search video on Youtube" value="">
+                        <button class="submit search_submit" type="submit" value="SEARCH">SEARCH</button>
+                    </form>
+                </div>
+                <div class="column column_4"></div>
+                <div class="column column_5"></div>
+            </div>
+
+        </div>
+
+        <!-- Search Result -->
+        <div class="searchResult hide">
+
+            <!-- 
+            <div class="container">
+                <div class="row row_0">
+                    <p class="title">SEARCH RESULT</p>
+                </div>
+                <div class="row row_1">
+
+                    <div class="result_item" data-videoId="">
+                        <div class="image" style="background-image: url(pic/hqdefault.jpg);"></div>
+                        <div class="overlay"></div>
+                        <div class="text"><p class="title_search" >New York City Vacation Travel Guide | Expedia</p></div>
+                    </div>
+                </div>
+                <div class="row row_2">
+                    <div class="search__btn search__btn--prev" data-goto="">
+                            <img class="arrow_white"src="pic/keyboard-left-arrow-button-white.png" alt="prev">
+                            <span class="results__btn_text">PREV</span>
+                            <img class="arrow_white"src="pic/keyboard-right-arrow-button-white.png" alt="next">
+                    </div>
+                    <div class="search__btn search__btn--next" data-goto="">
+                            <img class="arrow_white"src="pic/keyboard-left-arrow-button-white.png" alt="prev">
+                            <span class="results__btn_text">NEXT</span>
+                            <img class="arrow_white"src="pic/keyboard-right-arrow-button-white.png" alt="next">
+                    </div>
+
+                </div>
+
+            </div> 
+            -->
+
+        </div>
+
+        <!-- Recommended -->
+        <div class="recommended" >
+            
+                <!-- 
+                <div class="container">
+                    <div class="row row_0">
+                        <p class="title">RECOMMENDATIONS</p>
+                    </div>
+                    <div class="row row_1">
+    
+                        <div class="recommended_item" data-videoId="">
+                            <div class="image" style="background-image: url(pic/hqdefault.jpg);"></div>
+                            <div class="overlay"></div>
+                            <div class="text"><p class="title_recommended" >New York City Vacation Travel Guide | Expedia</p></div>
+                        </div>
+                    </div>
+                    <div class="row row_2">
+                        <div class="recommended__btn recommended__btn--prev" data-goto="">
+                                <img class="arrow_white"src="pic/keyboard-left-arrow-button-white.png" alt="prev">
+                                <span class="recommended__btn_text">PREV</span>
+                                <img class="arrow_white"src="pic/keyboard-right-arrow-button-white.png" alt="next">
+                        </div>
+                        <div class="recommended__btn recommended__btn--next" data-goto="">
+                                <img class="arrow_white"src="pic/keyboard-left-arrow-button-white.png" alt="prev">
+                                <span class="recommended__btn_text">NEXT</span>
+                                <img class="arrow_white"src="pic/keyboard-right-arrow-button-white.png" alt="next">
+                        </div>
+                    </div>
+                </div>  
+                -->
+           
+        </div> 
+
+        <!-- Video Pannel -->
+        <div class="pannelControl hide">
+            <div class="row">
+                
+                <!-- Left pannel -->
+                <div class="left_pannel_controller"  data-currentPage="">
+                <!-- 
+                <div class="left_pannel pannel">
+
+                    <div class="currentInfo">
+                        <p class="title">SUBTITLE #</p>
+                        <div class="value">
+                            <p class="currentPage">07<p class="totalPage"> / 145</p></p>
+                        </div>
+                    </div>
+
+                    <div class="pannel__btn pannel__btn--repl" data-goto="">
+                            <img class="arrow_white"src="pic/replay-white.png" alt="prev">
+                            <span class="pannel__btn_text">REPLAY</span>
+                    </div>
+
+                    <div class="pannel__btn pannel__btn--prev" data-goto="">
+                            <img class="arrow_white"src="pic/keyboard-left-arrow-button-white.png" alt="prev">
+                            <span class="pannel__btn_text">PREV</span>
+                    </div>
+                </div> 
+                -->
+                </div>
+
+                <!-- Center pannel -->
+                <div class="center_pannel_controller"  data-currentPage="">
+                    
+                    <!-- <div class="center pannel"> -->
+                        <div id="player2"></div>
+                        <!-- <div class="playButton" data-page=""><p>PLAY</p></div> -->
+                    <!-- </div> -->
+
+                </div>
+
+
+                <div class="right_pannel_controller"  data-currentPage="">
+                    <!-- Right pannel -->
+                    <!-- 
+                    <div class="right_pannel pannel">
+                        <div class="pageLink">
+                            <ul>
+                                <li class="pages finished" data-goto="">1</li>
+                                <li class="pages" data-goto="">2</li>
+                                <li class="pages" data-goto="">3</li>
+                                <li class="pages" data-goto="">191</li>
+                                <li class="pages current" data-goto="">201</li>
+                                <li class="pages" data-goto="">8</li>
+                                <li class="pages" data-goto="">9</li>
+                                <li class="pages" data-goto="">10</li>
+                                <li class="pages" data-goto="">191</li>
+                            </ul>
+                        </div>
+                        <div class="pannel__btn pannel__btn--next" data-goto="">
+                                <span class="pannel__btn_text">NEXT</span>
+                                <img class="arrow_white"src="pic/keyboard-right-arrow-button-white.png" alt="next">
+                        </div>
+                    </div> 
+                    -->
+                </div>
+
+
+
+            </div>
+        </div>
+
+        <!-- Subtitle display -->
+        <div class="subtitle hide">
+            <!-- 
+            <div class="container" data-page="">
+                <p  class="subtitle_text" data-page="">Returns a collection of search results that match the query parameters specified in the API request.</p>
+            </div> 
+            -->
+        </div>
+    </div>
+
+
+    
+</body>
+</html>
