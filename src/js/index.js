@@ -1,6 +1,5 @@
 import { elements, renderLoader, clearLoader} from './view/base';
 import Transcript from './module/Transcript';
-import * as transcriptView from './view/transcriptView';
 import Video from './module/Video';
 import * as videoView from './view/videoView';
 import Search from './module/Search';
@@ -10,9 +9,6 @@ import * as pannelView from './view/pannelView';
 import Recommend from './module/Recommend';
 import * as recommendView from './view/recommendView';
 import firebase from 'firebase';
-import firebaseui from 'firebaseui';
-import Auth from './module/Auth';
-require("firebase/firestore");
 
 const state = {
 };
@@ -23,7 +19,8 @@ window.state = state;
 window.addEventListener('load', async() => {
     setUpEnvironment();
     controlRecommend();
-    controlAuth();
+    pannelView.updateCenterPannel();
+    controlVideo('5jSZfTcsypI');
 });
 
 
@@ -40,14 +37,6 @@ const setUpEnvironment = () => {
 
 }
 
-const controlAuth = () => {
-    if(!state.auth) state.auth = new Auth();
-    state.auth.initAuth();
-};
-
-
-
-
 /**
  * RECOMMENDATION CONTROLLER
  */
@@ -55,6 +44,7 @@ const controlRecommend = async () => {
     if(!state.recommend) state.recommend = new Recommend(state.db);
     state.recommend.list = await state.recommend.getRecommendFromFirebase();
     recommendView.renderRecommended(state.recommend.list, 'recommendations');
+    recommendView.showRecommend();
 };
 
 elements.recommended.addEventListener('click', async(e) => {
@@ -64,16 +54,15 @@ elements.recommended.addEventListener('click', async(e) => {
         // Go to the page
         const page = parseInt(btn.dataset.goto);
         recommendView.clearResult();
-        recommendView.renderSearchResult(state.recommend.list, 'recommendations', page);
+        recommendView.renderRecommended(state.recommend.list, 'recommendations', page);
     } else if (video) {
-
-        recommendView.hideRecommend();
-
         state.currentVideo = state.recommend.list[parseInt(video.dataset.videoindex)];
-        await controlTranscript();
-        controlPannel();
-        await controlVideo();
-        pannelView.updatePlayButton();
+        const hasSubList = await controlTranscript();
+        if(hasSubList) {
+            controlPannel();
+            await controlVideo();
+            pannelView.updatePlayButton();
+        }
         
     }
 })
@@ -85,7 +74,6 @@ const controlSearch = async () => {
     // 1) Get query from view
     const query = searchView.getInput();
 
-
     if (query) {
         // 2) New search object and add to state
         state.search = new Search(query);
@@ -95,7 +83,7 @@ const controlSearch = async () => {
         renderLoader();
 
         try {
-            // 4) Search for recipes
+            // 4) Search for videos
             await state.search.getResults();
     
             // 5) Render results on UI
@@ -104,12 +92,16 @@ const controlSearch = async () => {
             searchView.renderSearchResult(state.search.results, 'search results');
             searchView.showSearchResult();
 
+            // Scans and marks no subtitle items
+            validateVideo();
+
         } catch (err) {
             clearLoader();
             alert('Something wrong with the search...');
             console.log(err);
         }
     }
+    
 }
 
 elements.searchSubmit.addEventListener('click', e => {
@@ -125,19 +117,30 @@ elements.searchResult.addEventListener('click', async(e) => {
         const page = parseInt(btn.dataset.goto);
         searchView.clearResult();
         searchView.renderSearchResult(state.search.results, 'search results', page);
+        validateVideo();
     } else if (video) {
-
-        searchView.hideSearchResult();
-
-        state.currentVideo = state.recommend.list[parseInt(video.dataset.videoindex)];
-        
-        await controlTranscript();
-        controlPannel();
-        await controlVideo();
-        pannelView.updatePlayButton();
-        
+        state.currentVideo = state.search.results.find((e) => e.videoID === video.dataset.videoid);
+        const hasSubList = await controlTranscript();
+        if(hasSubList) {
+            controlPannel();
+            await controlVideo();
+            pannelView.updatePlayButton();
+        } else {
+            video.classList.replace('hasSubtitle', 'noSubtitle');
+        }
     }
 })
+
+const validateVideo = () => {
+    const allItems = elements.searchResult.querySelectorAll('.hasSubtitle');
+    allItems.forEach( async e => {
+        const hasSub = await state.search.hasSubtitleByElement(e);
+        if(!hasSub) {
+            e.classList.replace('hasSubtitle', 'noSubtitle');
+            state.search.marksVideoWithNoSubByElement(e);
+        };
+    })
+};
 
 
 
@@ -145,14 +148,14 @@ elements.searchResult.addEventListener('click', async(e) => {
 //  * VIDEO CONTROLLER
 //  */
 
-const controlVideo = async () => {
+const controlVideo = async (videoID = state.currentVideo.videoID) => {
     if ( !state.video || !state.video.player1 && !state.video.player2){
         // ifram is not loaded
         state.video = new Video();
-        state.video.loadPlayer(state.currentVideo.videoID);
+        state.video.loadPlayer(videoID);
     } else {
         // palyer1 and player2 had been created, so update it by new id
-        state.video.replaceVideo(state.currentVideo.videoID);
+        state.video.replaceVideo(videoID);
     }
 }
 
@@ -160,34 +163,19 @@ const controlVideo = async () => {
  * TRANSCRIPT CONTROLLER
  */
 const controlTranscript = async () => {
-
+    let isSuccess = false;
     state.transcript = new Transcript(state.currentVideo.videoID,"en");
     try {
         // Load subtitle from database and save to state.text(array)
         state.currentVideo.subList = await state.transcript.getTranscript();
+        isSuccess =  state.currentVideo.subList? true : false;
 
     } catch(error) {
         alert('Error: cannot load transcript!');
         console.log(error);
     };
+    return isSuccess;
 };
-
-
-
-
-
-/// TEST
-// window.addEventListener('load', async()=>{
-//     state.currentVideo.videoID = 'vzSHcyXfNPw';
-//     elements.body.setAttribute('data-videoID', state.currentVideo.videoID);
-//     // searchView.clearResult();
-//     await controlVideo();
-//     await controlTranscript();
-//     controlPannel();
-// });
-
-
-
 
 /** 
  * PANNEL CONTROLLER
@@ -196,17 +184,23 @@ const controlPannel = () => {
     state.pannel = new Pannel(state.currentVideo)
     if (!state.video || !state.video.player1 && !state.video.player2) {
         pannelView.createPannel(state.pannel.subList, state.pannel.page);
+        searchView.hideSearchResult();
+        recommendView.hideRecommend();
         pannelView.showPannel();
         pannelView.showTranscript();
     } else {
         pannelView.updatePannel(state.pannel.subList, state.pannel.page);
+        searchView.hideSearchResult();
+        recommendView.hideRecommend();
+        pannelView.showPannel();
+        pannelView.showTranscript();
     }
     
 };
 
 // Handling Pannel Events
 elements.pannelControl.addEventListener('click', (e) => {
-    const subList = state.pannel.subList;
+    const subList = state.currentVideo.subList;
     const pageBut = e.target.closest('.pages');
     const nextBut = e.target.closest('.pannel__btn--next');
     const replBut = e.target.closest('.pannel__btn--repl');
@@ -218,7 +212,6 @@ elements.pannelControl.addEventListener('click', (e) => {
         pageNum = parseInt(pageBut.dataset.goto);
         updatePannelNPlayVideo(subList, pageNum);
     } else if (nextBut) {
-        
         pageNum = parseInt(nextBut.dataset.goto);
         updatePannelNPlayVideo(subList, pageNum);
     } else if (replBut) {
@@ -229,7 +222,7 @@ elements.pannelControl.addEventListener('click', (e) => {
         updatePannelNPlayVideo(subList, pageNum);
     } else if (playBut) {
         pageNum = parseInt(playBut.dataset.goto);
-        videoView.playVideo(state.video, subList, pageNum);
+        videoView.playVideoForFisrtTime(state.video, subList, pageNum);
         pannelView.removePlayBut();
     }
 });
@@ -245,12 +238,19 @@ const updatePannelNPlayVideo = (subList, pageNum) => {
 
 
 window.addEventListener('keypress', (e) => {
-    const keyInPage = e.path[0].dataset.subtitlepage;
-    const pageNum = state.pannel.pageNum;
-    const subList = state.pannel.subList;
-    if(keyInPage == pageNum && state.pannel.subList) {    
+    const key = e.path[0];
+    if( key.dataset.subtitlepage >= 0 &&
+        state.pannel.subList &&
+        state.pannel.pageNum >= 0 &&
+        key.dataset.subtitlepage == state.pannel.pageNum) { 
+        console.log('checking');
+        const pageNum = state.pannel.pageNum;
+        const subList = state.pannel.subList;
+    
+       
         const position = state.pannel.getQuestionPosition();
         let res = state.pannel.checkAns(e.key, position);
+        console.log(res);
         switch(res) {
             case('correct'):
                 state.pannel.restCounter();
@@ -265,17 +265,20 @@ window.addEventListener('keypress', (e) => {
                 state.pannel.saveAns(position);
                 pannelView.updateSubtitle(subList, pageNum);
                 break;
-            case('finish'):
-                videoView.playVideo(state.video, subList, pageNum);
+            case('end'):
+                videoView.playTillEnds(state.video, subList, pageNum);
                 state.pannel.saveAns(position);
-                pannelView.updateSubtitle(subList, pageNum);
+                pannelView.updatePannel(subList, pageNum);
+                break;
+            case('finish'):
+                const dur = videoView.playTillNextPartEnds(state.video, subList, pageNum);
+                state.pannel.saveAns(position);
+                pannelView.updatePannel(subList, pageNum);
                 state.pannel.goToNextPage();
 
-                if(state.pannel.NextPart) clearTimeout(NextPart);
-                let dur = subList[pageNum].dur;
+                // if(state.pannel.NextPart) clearTimeout(NextPart);
                 state.pannel.NextPart = setTimeout(() => {
-                    pannelView.updatePannel(subList, pageNum);
-                    videoView.playVideo(state.video, subList, pageNum);
+                    pannelView.updatePannel(subList, pageNum + 1);
                 }, dur);
                 break;
             case('done'):

@@ -36,7 +36,7 @@ export const updateLeftPannel = (subList, page) => {
     leftPannel.insertAdjacentHTML('afterbegin', markup);
 };
 
-export const updateCenterPannel = (page) => {
+export const updateCenterPannel = (page = 0) => {
     page = isNaN(page) ? 0 : page;
     const centerPannel = elements.centerPannel;
     const player = centerPannel.querySelector('#player2');
@@ -71,21 +71,22 @@ export const updateRightPannel = (subList, page) => {
     `;  
     right.insertAdjacentHTML('afterbegin', markup);
 }
-const createPagesItem = (subList, page) => {
 
+
+const createPagesItem = (subList, page) => {
     let markup = '';
     subList.forEach( (e, i) => {
         const temp = `
             <li class="
                 pages 
-                ${page === i ? 'current' : ''}" data-goto="${i} 
-                ${subList[i].status ? 'finished' : ''}">
+                ${page === i ? 'current' : ''} ${subList[i].status ? 'finished' : ''}" data-goto="${i} ">
                     ${i + 1}
             </li>`;
         markup += temp;
     });
     return markup;
 }
+
 
 const createPannelButton = (type, page) => {
     const markup = `

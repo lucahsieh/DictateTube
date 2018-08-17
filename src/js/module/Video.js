@@ -63,6 +63,7 @@ export default class Video{
     palyVideo1(event) {
         const palyer = event.target;
         palyer.mute();
+        palyer.playVideo();
     }
 
     palyVideo2(event) {
@@ -73,12 +74,12 @@ export default class Video{
         console.log(id+' replaceVideo');
         this.player2.cueVideoById({videoId: id,
             startSeconds: 0,
-            endSeconds: 0,
+            // endSeconds: 1,
             suggestedQuality: 'default'
         });
         this.player1.cueVideoById({videoId: id,
             startSeconds: 0,
-            endSeconds: 0,
+            // endSeconds: 1,
             suggestedQuality: 'default'
         });
         

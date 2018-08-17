@@ -80,7 +80,9 @@
  * PAGE STYLE
  */
 .wraper{
+    background-color: aquamarine;
     width: 1366px;
+    height: 2700px;
     margin-left: auto;
     margin-right: auto;
     position: relative;
@@ -98,16 +100,18 @@
 .header .container{
     width: 100%;
     height: 100px;
-    padding: 25px 25px 25px 15px;
+    background-color: saddlebrown;
+    padding: 25px;
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 .header .container .column{
-    height: 40px;
+    height: 50px;
     box-sizing: border-box;
     display: block;
+    background-color: salmon;
     display: flex;
     justify-content: center; 
     align-items: center;
@@ -128,7 +132,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 40px;
+    height: 50px;
     padding: 10px;
     background-color: transparent;
     border: 1px solid white;
@@ -142,8 +146,8 @@
     position: absolute;
     top: 0;
     right: 0;
-    width: 23%;
-    height: 40px;
+    width: 30%;
+    height: 50px;
     background-color: white;
     border: 1px solid white;
     box-sizing: border-box;
@@ -160,6 +164,22 @@
     color: #ffc20d;
 }
 
+/**
+ * AUTH
+ */
+ .auth{
+    position: relative;
+    z-index: 40;
+}
+
+.auth .container{
+    width: 100%;
+    background-color: skyblue;
+    padding: 0px 0 ;
+    box-sizing: border-box;
+    height: 300px;;
+}
+
 
 /**
  * SEARCH RESULT
@@ -170,12 +190,15 @@
 }
 .searchResult .container{
     width: 100%;
+    background-color: silver;
     padding: 0px 0 ;
     box-sizing: border-box;
 }
 .searchResult .container .row{
+    background-color: burlywood;
 }
 .searchResult .container .row:nth-of-type(odd){
+    background-color: red;
     position: relative;
     height: 50px;
     margin-bottom: 15px;
@@ -188,14 +211,15 @@
 }
 .searchResult .container .row:nth-of-type(1){
     height: auto;
-    min-height: 40px;
+    min-height: 50px;
+    background-color: slateblue;
 }
 .searchResult .container .row:nth-of-type(1) *{
     font-size: 50px;
     font-family: 'Roboto', sans-serif;
-    text-shadow: 0 0 5px #000;
+    text-shadow: 0 0 5px black;
     font-weight: 100;
-    color: #ffffff;
+    color: #ffc20d;
 }
 
 /* Search Result Items */
@@ -231,7 +255,6 @@
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     color: black;
-    line-height: 27px;
     font-size: 25px;
     font-weight: 400;
     
@@ -254,7 +277,7 @@
 }
 .searchResult .noSubtitle .overlay{
     height: 100%;
-    background-color: black;
+    background-color: #111111;
     opacity: 0.9;
 }
 .searchResult .noSubtitleNotice{
@@ -321,12 +344,15 @@
 }
 .recommended .container{
     width: 100%;
+    background-color: silver;
     padding: 0px 0 ;
     box-sizing: border-box;
 }
 .recommended .container .row{
+    background-color: burlywood;
 }
 .recommended .container .row:nth-of-type(odd){
+    background-color: red;
     position: relative;
     height: 50px;
     margin-bottom: 15px;
@@ -340,13 +366,14 @@
 .recommended .container .row:nth-of-type(1){
     height: auto;
     min-height: 50px;
+    background-color: slateblue;
 }
 .recommended .container .row:nth-of-type(1) *{
     font-size: 50px;
     font-family: 'Roboto', sans-serif;
     text-shadow: 0 0 5px black;
     font-weight: 100;
-    color: white;
+    color: #ffc20d;
 }
 
 /* Recommended Items */
@@ -436,6 +463,11 @@
     left: 0;
 }
 
+/*
+ * 
+ */
+
+
 /**
  * VIDEO PANNEL
  */
@@ -446,6 +478,7 @@
 }
 .pannelControl .row{
     position: relative;
+    background-color: hotpink;
     width: 100%;
 }
 .pannelControl .pannel{
@@ -456,20 +489,21 @@
 }
 .pannelControl .center{
     position: relative;
+    background-color: gold;
     width: 766px;
-    height: 432px;
+    height: 397.12px;
     top:0;
     left: 300px;
     z-index: 50;
     box-shadow: 0 0 20px #111111;
     padding: 0;
-    margin: 25px 0 0 0;
+    margin: 25px 0;
 }
 
 /* Video Display */
 .pannelControl .center iframe{
     width: 100%;
-    height: 432px;
+    height: 397.12px;
 }
 .pannelControl .center .playButton{
     background-color: transparent;
@@ -492,8 +526,8 @@
 
 .pannelControl .left_pannel{
     position: absolute;
-    background-color: #ffc20d;
-    top:50px;
+    background-color: green;
+    top:0;
     left: 0;
     z-index: 30;
     display: flex;
@@ -504,12 +538,13 @@
 /* Current Page Info */
 .pannelControl .right_pannel{
     position: absolute;
-    background-color: #ffc20d;
-    top:50px;
+    background-color: greenyellow;
+    top:0;
     right: 0;
     z-index: 30;
 }
 .pannelControl .currentInfo{
+    background-color: honeydew;
     margin-bottom: 100px;
 }
 .pannelControl .currentInfo .title{
@@ -522,12 +557,14 @@
 .pannelControl .currentInfo .currentPage{
     font-size: 90px;
     font-weight: 700;
+    background-color: rebeccapurple;
     display: inline-block;
     line-height: 80px;
 }
 .pannelControl .currentInfo .totalPage{
     font-size: 30px;
     font-weight: 700;
+    background-color: coral;
     display: inline-block;
 }
 
@@ -539,7 +576,8 @@
 }
 .pannelControl .pageLink{
     width: 100%;
-    height: 280px;
+    height: 200px;
+    background-color: #302f3b;
 }
 .pannelControl .pageLink .pages{
     display: inline-block;
@@ -547,7 +585,7 @@
     text-align: center;
     padding-top: 1.2px;
     font-weight: 100;
-    font-size: 10px;
+    font-size: 15px;
     box-sizing: content-box;
     font-family: 'Roboto Mono', monospace;
 }
@@ -584,6 +622,7 @@
     font-weight: 300;
 }
 .pannelControl .pannel__btn:hover {
+    background-color: #ffc20d;
     color: #1a1a1a;
 }
 
@@ -596,22 +635,19 @@
     width: 100%;
 }
 .subtitle .container{
-    width: 766px;
+    background-color: goldenrod;
+    width: 100%;
     z-index: 65;
     text-align: center;
-    padding: 10px 25px;
-    background-color: #1a1a1a;
-    box-shadow: 0 0 20px #111111;
-    margin-left: auto;
-    margin-right: auto;
+    padding: 25px;
 }
 .subtitle .subtitle_text{
     display: inline-block;
+    background-color: khaki;
+    width: 766px;
     min-height: 50px;
     font-size: 22px;
     font-family: 'Roboto Mono', monospace;
-    background-color: #444444;
-    color: white;
 }
 
 /* 

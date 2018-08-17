@@ -8,12 +8,13 @@ export default class Transcript{
     }
 
 
-    
     async getTranscript() {
         try {
             // get XML file from YouTube.
             const xmlObj = await axios(`https://video.google.com/timedtext?lang=${this.lang}&v=${this.videoID}`);
+            console.log(xmlObj);
             const jsObj = this.convertXMLtoJsObj(xmlObj);
+            console.log(jsObj);
             return this.createTranscriptArr(jsObj);
         } catch (error) {
             console.log(error);
@@ -46,6 +47,7 @@ export default class Transcript{
     convertCharToBullet(str) {
         return str.replace(/[a-zA-Z]/g, '_');
     }
+
 
 
     

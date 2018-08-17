@@ -31,6 +31,7 @@ export default class Pannel{
     }
 
     isQustionMatchAns() {
+        this.subList[this.pageNum].status = true;
         return this.subList[this.pageNum].ans === this.subList[this.pageNum].question
     }
 
@@ -54,21 +55,25 @@ export default class Pannel{
         const corr = this.getCorrectAns(position).toLocaleLowerCase();
         const length = this.getQustionLength();
         const numOfDifference = this.isLastCharToGuess();
+        let value = '';
         if(numOfDifference === 0){
-            return 'done';
+            value = 'done';
         } else if (this.counter >= 2){
-            return 'pass';
+            value = 'pass';
         } else if (numOfDifference === 1) {
-            return char === corr ? 'finish' : 'wrong';
+            value = char === corr ? 'finish' : 'wrong';
+            if (value === 'finish' && this.pageNum + 1 === this.subList.length) value = 'end';
         } else if (position < length - 1) {
-            return char === corr ? 'correct' : 'wrong';
+            value = char === corr ? 'correct' : 'wrong';
         } else {
-            return 'done';
+            value = 'done';
         }
+        return value;
     }
 
     
     saveAns(position) {
+        this.isQustionMatchAns();
         this.subList[this.pageNum].question = 
             this.replaceAt(this.subList[this.pageNum].question, position, this.subList[this.pageNum].ans.charAt(position));
 
