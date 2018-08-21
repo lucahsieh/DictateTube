@@ -1,5 +1,3 @@
-
-
 export const elements = {
     body: document.querySelector('.body'),
     searchText: document.querySelector('.search_text'),
@@ -12,22 +10,8 @@ export const elements = {
     rightPannel: document.querySelector('.right_pannel_controller'),
     subtitle: document.querySelector('.subtitle'),
     pannelControl: document.querySelector('.pannelControl'),
-
-    // searchForm: document.querySelector('.userSearchSubmit'),
-    // searchResult: document.querySelector('.searchDisplay'),
-    // searchInput: document.querySelector('.searchInput'),
-
-    // subtitlePannel: document.querySelector('.subtitlePannel'),
-    // playButton: document.querySelector('.play'),
-    // videoDislay: document.querySelector('.videoDislay'),
-
-    // replayButton: document.querySelector('.replay_button'),
-    // nextButton: document.querySelector('.next_button'),
-    // previousButton: document.querySelector('.prev_button'),
-    // currentSubtitle: document.querySelector('.subtitle_text_cur'),
-
-    // progressArea: document.querySelector('.progress_area'),
-    // 
+    index: document.querySelector('.index'),
+    header: document.querySelector('.header'),
 };
 
 export const renderLoader = () => {

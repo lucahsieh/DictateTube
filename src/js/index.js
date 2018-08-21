@@ -10,21 +10,27 @@ import Recommend from './module/Recommend';
 import * as recommendView from './view/recommendView';
 import firebase from 'firebase';
 
+// Gobal object to store state
 const state = {
 };
 
-// test
-window.state = state;
-
+/**
+ * APPLICATION SETUP
+ */
 window.addEventListener('load', async() => {
+
     setUpEnvironment();
     controlRecommend();
     pannelView.updateCenterPannel();
+
+    // Default background video
     controlVideo('5jSZfTcsypI');
 });
 
 
 const setUpEnvironment = () => {
+
+    // Initialize firebase
     firebase.initializeApp({
         apiKey: "AIzaSyDuvJxuQN-pGyrKPt1Ja8ALS8hCuva49HQ",
         authDomain: "dictatetube.firebaseapp.com",
@@ -33,63 +39,90 @@ const setUpEnvironment = () => {
       
     // Initialize Cloud Firestore through Firebase
     state.db = firebase.firestore();
-
-
 }
+
+// Handle header events
+elements.header.addEventListener('click', (e) => {
+    
+    // Go to home page
+    const logo = e.target.closest('.logo');
+    if (logo) {
+        recommendView.showIndex();
+        recommendView.showRecommend();
+        searchView.hideSearchResult();
+        pannelView.hidePannel();
+        pannelView.hideTranscript();
+    }
+});
 
 /**
  * RECOMMENDATION CONTROLLER
  */
 const controlRecommend = async () => {
+    // Create Recommend Control State
     if(!state.recommend) state.recommend = new Recommend(state.db);
+
+    // Fetch data from firebase
     state.recommend.list = await state.recommend.getRecommendFromFirebase();
+
+    // Render results
     recommendView.renderRecommended(state.recommend.list, 'recommendations');
+    recommendView.renderIndex();
+    recommendView.showIndex();
     recommendView.showRecommend();
 };
 
+// Handel recommended result events
 elements.recommended.addEventListener('click', async(e) => {
+
     const btn = e.target.closest('.recommended__btn');
     const video = e.target.closest('.recommended_item');
-    if(btn) {
-        // Go to the page
+
+    if(btn) {   
+        // Click next page or prev page button
         const page = parseInt(btn.dataset.goto);
         recommendView.clearResult();
         recommendView.renderRecommended(state.recommend.list, 'recommendations', page);
     } else if (video) {
+        // Click chosen video and save video candidate
         state.currentVideo = state.recommend.list[parseInt(video.dataset.videoindex)];
+
+        // Go to dictation page ONLY when it got valid transcript
         const hasSubList = await controlTranscript();
         if(hasSubList) {
             controlPannel();
             await controlVideo();
             pannelView.updatePlayButton();
-        }
-        
+        }   
     }
-})
+});
+
+
 
 /** 
  * SEARCH CONTROLLER
  */
 const controlSearch = async () => {
-    // 1) Get query from view
+    // Get query from view
     const query = searchView.getInput();
 
     if (query) {
-        // 2) New search object and add to state
+        // New search object and add to state
         state.search = new Search(query);
 
-        // 3) Prepare UI for results
+        // Prepare UI for results
         searchView.clearResult();
         renderLoader();
 
         try {
-            // 4) Search for videos
+            // Search for videos
             await state.search.getResults();
     
-            // 5) Render results on UI
+            // Render results on UI
             clearLoader();
             searchView.clearInputText();
             searchView.renderSearchResult(state.search.results, 'search results');
+            recommendView.hideIndex();
             searchView.showSearchResult();
 
             // Scans and marks no subtitle items
@@ -100,9 +133,8 @@ const controlSearch = async () => {
             alert('Something wrong with the search...');
             console.log(err);
         }
-    }
-    
-}
+    } 
+};
 
 elements.searchSubmit.addEventListener('click', e => {
     e.preventDefault();
@@ -186,12 +218,14 @@ const controlPannel = () => {
         pannelView.createPannel(state.pannel.subList, state.pannel.page);
         searchView.hideSearchResult();
         recommendView.hideRecommend();
+        recommendView.hideIndex();
         pannelView.showPannel();
         pannelView.showTranscript();
     } else {
         pannelView.updatePannel(state.pannel.subList, state.pannel.page);
         searchView.hideSearchResult();
         recommendView.hideRecommend();
+        recommendView.hideIndex();
         pannelView.showPannel();
         pannelView.showTranscript();
     }
@@ -206,6 +240,7 @@ elements.pannelControl.addEventListener('click', (e) => {
     const replBut = e.target.closest('.pannel__btn--repl');
     const prevBut = e.target.closest('.pannel__btn--prev');
     const playBut = e.target.closest('.playButton');
+    const subtitle = e.target.closest('.title');
     let pageNum;
 
     if (pageBut) {
@@ -224,7 +259,7 @@ elements.pannelControl.addEventListener('click', (e) => {
         pageNum = parseInt(playBut.dataset.goto);
         videoView.playVideoForFisrtTime(state.video, subList, pageNum);
         pannelView.removePlayBut();
-    }
+    };
 });
 
 const updatePannelNPlayVideo = (subList, pageNum) => {
@@ -233,7 +268,6 @@ const updatePannelNPlayVideo = (subList, pageNum) => {
     pannelView.updatePannel(subList, pageNum);
     videoView.playVideo(state.video, subList, pageNum);
     pannelView.removePlayBut();
-    // setUpKeyBoardEvent();
 }
 
 
@@ -243,14 +277,12 @@ window.addEventListener('keypress', (e) => {
         state.pannel.subList &&
         state.pannel.pageNum >= 0 &&
         key.dataset.subtitlepage == state.pannel.pageNum) { 
-        console.log('checking');
         const pageNum = state.pannel.pageNum;
         const subList = state.pannel.subList;
     
        
         const position = state.pannel.getQuestionPosition();
         let res = state.pannel.checkAns(e.key, position);
-        console.log(res);
         switch(res) {
             case('correct'):
                 state.pannel.restCounter();

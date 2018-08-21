@@ -12,10 +12,9 @@ export default class Transcript{
         try {
             // get XML file from YouTube.
             const xmlObj = await axios(`https://video.google.com/timedtext?lang=${this.lang}&v=${this.videoID}`);
-            console.log(xmlObj);
             const jsObj = this.convertXMLtoJsObj(xmlObj);
-            console.log(jsObj);
-            return this.createTranscriptArr(jsObj);
+            const arr = this.createTranscriptArr(jsObj);
+            return this.reCalcDuration(arr);
         } catch (error) {
             console.log(error);
         }
@@ -33,11 +32,12 @@ export default class Transcript{
         const subtitles = [];
 
         object.elements[0].elements.forEach(e => {
+            let subtitle = this.deletNoneChar(e.elements[0].text);
             let temp = {};
             temp.start = parseInt(e.attributes.start);
             temp.dur = parseFloat(e.attributes.dur) * 1.3 * 1000;
-            temp.question = this.convertCharToBullet(e.elements[0].text);
-            temp.ans = e.elements[0].text;
+            temp.ans = subtitle;
+            temp.question = this.convertCharToBullet(subtitle);
             temp.status = false;
             subtitles.push(temp);
         });
@@ -46,6 +46,30 @@ export default class Transcript{
 
     convertCharToBullet(str) {
         return str.replace(/[a-zA-Z]/g, '_');
+    }
+
+    deletNoneChar(str) {
+        let res = str.replace(/&(\w+);/g, ' ');
+        res = res.replace(/(<([^>]+)>)/g, ' ');
+        res = res.replace(/(\[([^\]]+)\])/g, ' ');
+        return res;
+    }
+
+    reCalcDuration(arr) {
+        const buffer = 1.2;
+        const linger = 0.9;
+        arr.forEach((e, i) => {
+            if(i === 0) {
+                e.start = 0;
+                e.dur = (arr[1].start + linger) * buffer * 1000;
+            } else if ( i > 0 && i < arr.length - 1) {
+                e.start = e.start - 1;
+                e.dur = (arr[i + 1].start - arr[i].start + linger) * buffer * 1000;
+            } else {
+                e.dur = e.dur;
+            }
+        })
+        return arr;
     }
 
 

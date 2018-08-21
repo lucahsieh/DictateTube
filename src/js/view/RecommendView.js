@@ -36,9 +36,9 @@ const renderItems = (items) => {
 const createButton = (page, type) => {
     const markup = `
     <div class="recommended__btn recommended__btn--${type}" data-goto="${type === 'prev'? page - 1 : page + 1}">
-        ${type === 'prev' ? '<img class="arrow_white"src="pic/keyboard-left-arrow-button-white.png" alt="prev">' : ''}
+        ${type === 'prev' ? '<i class="material-icons">chevron_left</i>' : ''}
         <span class="recommended__btn_text">${type.toUpperCase()}</span>
-        ${type === 'next' ? '<img class="arrow_white"src="pic/keyboard-right-arrow-button-white.png" alt="next">' : ''}
+        ${type === 'next' ? '<i class="material-icons">chevron_right</i>' : ''}
     </div>
     `;
     return markup;
@@ -64,6 +64,16 @@ const renderButtons = (page, numResults, videoPerPage) => {
 
 export const clearResult = () => elements.recommended.innerHTML = '';
 
+export const renderIndex = () => {
+    const temp = `
+        <div class="container">
+            <h1 class="welcome">Welcome,</h1>
+            <h2 class="content">DictateTube helps you to improve your English listening, spelling, writing and typing skills by listening and typing each letter you hear. You can choose videoes that you like on YouTube to start your dictation.</h2>
+        </div> 
+    `
+    elements.index.insertAdjacentHTML('afterbegin', temp);
+}
+
 
 export const showRecommend = () => {
     elements.recommended.classList.replace('hide', 'show');
@@ -71,4 +81,12 @@ export const showRecommend = () => {
 
 export const hideRecommend = () => {
     elements.recommended.classList.replace('show', 'hide');
+};
+
+export const showIndex = () => {
+    elements.index.classList.replace('hide', 'show');
+};
+
+export const hideIndex = () => {
+    elements.index.classList.replace('show', 'hide');
 };

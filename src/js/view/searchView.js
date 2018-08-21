@@ -37,13 +37,12 @@ const renderItems = (items) => {
 }
 
 
-
 const createButton = (page, type) => {
     const markup = `
     <div class="search__btn search__btn--${type}" data-goto="${type === 'prev'? page - 1 : page + 1}">
-        ${type === 'prev' ? '<img class="arrow_white"src="pic/keyboard-left-arrow-button-white.png" alt="prev">' : ''}
-        <span class="results__btn_text">${type.toUpperCase()}</span>
-        ${type === 'next' ? '<img class="arrow_white"src="pic/keyboard-right-arrow-button-white.png" alt="next">' : ''}
+        ${type === 'prev' ? '<i class="material-icons">chevron_left</i>' : ''}
+        <span class="recommended__btn_text">${type.toUpperCase()}</span>
+        ${type === 'next' ? '<i class="material-icons">chevron_right</i>' : ''}
     </div>
     `;
     return markup;

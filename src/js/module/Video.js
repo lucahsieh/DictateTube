@@ -20,7 +20,6 @@ export default class Video{
     }
 
     onYouTubePlayer(id) {
-        console.log(id+' onYouTubePlayer');
         this.player1 = new YT.Player('player1', {
           height: '500',
           width: '100%',
@@ -71,15 +70,12 @@ export default class Video{
     }
 
     replaceVideo(id) {
-        console.log(id+' replaceVideo');
         this.player2.cueVideoById({videoId: id,
             startSeconds: 0,
-            // endSeconds: 1,
             suggestedQuality: 'default'
         });
         this.player1.cueVideoById({videoId: id,
             startSeconds: 0,
-            // endSeconds: 1,
             suggestedQuality: 'default'
         });
         

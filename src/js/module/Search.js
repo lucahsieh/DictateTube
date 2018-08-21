@@ -17,20 +17,15 @@ export default class Search{
             for (const item of lis.data.items) {
                 const vID = item.id.videoId;                   // Get this videoid
                 let counter = 0;
-                // const eng = await this.hasEngSubtitle(vID);           // Search all subtitles of this videoid
-
-                // if (eng) {
-                    const temp = {
-                        title: item.snippet.title,
-                        videoID: vID,
-                        description: item.snippet.description,
-                        thumbnails: item.snippet.thumbnails.high.url,
-                        hasSubtitle: true,
-                    };
-                    this.results.push(temp);
-                // }
+                const temp = {
+                    title: item.snippet.title,
+                    videoID: vID,
+                    description: item.snippet.description,
+                    thumbnails: item.snippet.thumbnails.high.url,
+                    hasSubtitle: true,
+                };
+                this.results.push(temp);
             };
-
         } catch (error) {
             alert('Error: cannot search!');
             console.log(error);
@@ -65,6 +60,5 @@ export default class Search{
     marksVideoWithNoSubByElement(e) {
         const id = e.dataset.videoid;
         this.results.find( e => e.videoID === id).hasSubtitle = false;
-        console.log(this.results.find( e => e.videoID === id));
     }
 };

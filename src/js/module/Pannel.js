@@ -76,18 +76,10 @@ export default class Pannel{
         this.isQustionMatchAns();
         this.subList[this.pageNum].question = 
             this.replaceAt(this.subList[this.pageNum].question, position, this.subList[this.pageNum].ans.charAt(position));
-
     }
 
     replaceAt(st, index, char) {
         if (index > st.length - 1) return st;
         return st.substring(0, index) + char + st.substring(index + 1);
     }
-
-
-
-    
-
-
-
 }

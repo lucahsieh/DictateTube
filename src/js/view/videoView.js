@@ -59,6 +59,13 @@ export const playTillNextPartEnds = (video, subList, subNo = 0) => {
     video.player1.playVideo();
     video.player2.playVideo();
 
+    if(subNo < subList.length - 1) {
+        stopThisPart = setTimeout(() => {
+            video.player1.pauseVideo();
+            video.player2.pauseVideo();
+        }, dur1 + dur2);
+    }
+
     return dur1;
 };
 

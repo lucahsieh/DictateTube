@@ -3,7 +3,13 @@
     padding: 0;
     font-family: 'Roboto Condensed', sans-serif;
     box-sizing: border-box;
+    font-style: normal;
+}
 
+a{
+    text-decoration: none;
+    color: inherit;
+    font-style: inherit;
 }
 /* 
  * LOADER
@@ -16,7 +22,7 @@
     position: fixed;
     top: 0;
     z-index: 99;
-    opacity: 0.95;
+    opacity: 0.8;
     text-align: center;
     padding-top: 40vh;
     transition: 0.5s ease;
@@ -80,7 +86,7 @@
  * PAGE STYLE
  */
 .wraper{
-    width: 1366px;
+    width: 1200px;
     margin-left: auto;
     margin-right: auto;
     position: relative;
@@ -115,6 +121,12 @@
 
 .header .container .column_1{
     width: 200px;
+}
+.logo{
+    height: 40px;
+}
+.logo:hover{
+    background-color: #ffc20d;
 }
 .header .container .column_2{
     width: 400px;
@@ -160,6 +172,28 @@
     color: #ffc20d;
 }
 
+/**
+ * INDEX PAGE
+ */
+ .index .container{
+    color: white;
+    padding: 120px 0px;    
+}
+.welcome{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 70px;
+}
+.index .content{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    font-size: 20px;
+    width: 600px;
+    margin-bottom: 20px;
+    line-height: 30px;
+    letter-spacing: 1px;
+}
+
 
 /**
  * SEARCH RESULT
@@ -191,9 +225,9 @@
     min-height: 40px;
 }
 .searchResult .container .row:nth-of-type(1) *{
-    font-size: 50px;
+    font-size: 38px;
     font-family: 'Roboto', sans-serif;
-    text-shadow: 0 0 5px #000;
+    text-shadow: 0 0 10px #000;
     font-weight: 100;
     color: #ffffff;
 }
@@ -202,9 +236,10 @@
 .searchResult .result_item{
     display: inline-block;
     position: relative;
-    width: 331px;
-    height: 185px;
+    width: 289.5px;
+    height: 161.8px;
     margin: 5px 0px;
+    box-shadow: 0 0 10px #000;
 }
 .searchResult .result_item:nth-of-type(4n+2){
     margin-left: 10px;
@@ -234,7 +269,6 @@
     line-height: 27px;
     font-size: 25px;
     font-weight: 400;
-    
 }
 .searchResult .result_item .overlay {
     position: absolute;
@@ -282,7 +316,7 @@
 .searchResult .search__btn{
     display: inline-block;
     position: absolute;
-    width: 331px;
+    width: 289.5px;
     background-color: #1a1a1a;
     font-size: 25px;
     box-sizing: border-box;
@@ -291,6 +325,7 @@
     justify-content: center;
     align-items: center;
     color: white;
+    box-shadow: 0 0 10px #000;
 }
 .searchResult .search__btn img{
     height: 15px;
@@ -342,9 +377,9 @@
     min-height: 50px;
 }
 .recommended .container .row:nth-of-type(1) *{
-    font-size: 50px;
+    font-size: 38px;
     font-family: 'Roboto', sans-serif;
-    text-shadow: 0 0 5px black;
+    text-shadow: 0 0 10px black;
     font-weight: 100;
     color: white;
 }
@@ -353,9 +388,10 @@
 .recommended .recommended_item{
     display: inline-block;
     position: relative;
-    width: 331px;
-    height: 185px;
+    width: 289.5px;
+    height: 161.8px;
     margin: 5px 0px;
+    box-shadow: 0 0 10px #000;
 }
 .recommended .recommended_item:nth-of-type(4n+2){
     margin-left: 10px;
@@ -382,6 +418,7 @@
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     color: black;
+    line-height: 27px;
     font-size: 25px;
     font-weight: 400;
     
@@ -406,7 +443,7 @@
 .recommended .recommended__btn{
     display: inline-block;
     position: absolute;
-    width: 331px;
+    width: 289.5px;
     background-color: #1a1a1a;
     font-size: 25px;
     box-sizing: border-box;
@@ -415,6 +452,7 @@
     justify-content: center;
     align-items: center;
     color: white;
+    box-shadow: 0 0 10px #000;
 }
 .recommended .recommended__btn img{
     height: 15px;
@@ -449,17 +487,15 @@
     width: 100%;
 }
 .pannelControl .pannel{
-    padding:25px;
-    width: 300px;
-    height: 397.12px;
+    padding:15px;
+    width: 217px;
     box-sizing: border-box;
 }
 .pannelControl .center{
     position: relative;
     width: 766px;
-    height: 432px;
     top:0;
-    left: 300px;
+    left: 217px;
     z-index: 50;
     box-shadow: 0 0 20px #111111;
     padding: 0;
@@ -472,7 +508,6 @@
     height: 432px;
 }
 .pannelControl .center .playButton{
-    background-color: transparent;
     position: absolute;
     top:  0; left: 0; right: 0; bottom: 0;
     z-index: 60;
@@ -486,13 +521,16 @@
     height: 50px;
     width: 100%;
     line-height: 55px;
-    background-color: #ffc20d;
+    background-color: #1a1a1a;
     text-align: center;
+    color: #ffc20d;
+    box-shadow: 0 0 10px #000;
 }
 
 .pannelControl .left_pannel{
     position: absolute;
     background-color: #ffc20d;
+    height: 300px;
     top:50px;
     left: 0;
     z-index: 30;
@@ -505,12 +543,14 @@
 .pannelControl .right_pannel{
     position: absolute;
     background-color: #ffc20d;
-    top:50px;
+    top:25px;
     right: 0;
     z-index: 30;
 }
 .pannelControl .currentInfo{
-    margin-bottom: 100px;
+    margin-bottom: 25px;
+    margin-left: 10px;
+    margin-top: 10px;
 }
 .pannelControl .currentInfo .title{
     font-size: 30px;
@@ -533,17 +573,16 @@
 
 /* Page Links */
 .pannelControl .right_pannel{
-    display: flex;
+    /* display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-between; */
 }
 .pannelControl .pageLink{
     width: 100%;
-    height: 280px;
 }
 .pannelControl .pageLink .pages{
     display: inline-block;
-    margin: 1.5px 2px;
+    margin: 1.5px 1.5px;
     text-align: center;
     padding-top: 1.2px;
     font-weight: 100;
@@ -555,16 +594,17 @@
     color: white;
 }
 .finished{
-    color: #ffc20d;
+    color: #1a1a1a;
 }
 .current{
     border-top: 1px solid white;
     border-bottom: 1px solid white;
 }
 /* Pannel Buttons */
-.pannelControl .pannel__btn{
+.pannel__btn{
     display: inline-block;
-    width: 250px;
+    position: relative;
+    width: 187;
     background-color: #1a1a1a;
     font-size: 25px;
     box-sizing: border-box;
@@ -573,18 +613,24 @@
     justify-content: start;
     align-items: center;
     color: white;
-    padding: 0 50px;
+    padding: 0 20px;
+    box-shadow: 0 0 10px #000;
 }
-.pannelControl .pannel__btn img{
-    width: 15px;
+.pannel__btn--next{
+    margin-top: 15px;
+}
+
+.pannel__btn .material-icons{
+    font-size: 20px;
+    color: #ffffff;
 }
 .pannelControl .pannel__btn_text{
     display: inline-block;
     margin: 0 35px;
     font-weight: 300;
 }
-.pannelControl .pannel__btn:hover {
-    color: #1a1a1a;
+.pannelControl .pannel__btn:hover *{
+    color: #ffc20d;
 }
 
 /**
@@ -594,12 +640,13 @@
     position: relative;
     z-index: 60;
     width: 100%;
+    margin-bottom: 100px;
 }
 .subtitle .container{
     width: 766px;
     z-index: 65;
     text-align: center;
-    padding: 10px 25px;
+    padding: 10px 25px 15px 25px;
     background-color: #1a1a1a;
     box-shadow: 0 0 20px #111111;
     margin-left: auto;
@@ -610,9 +657,90 @@
     min-height: 50px;
     font-size: 22px;
     font-family: 'Roboto Mono', monospace;
-    background-color: #444444;
     color: white;
 }
+
+/**
+ * FOOTER
+ */
+ .footer .container{
+    position: relative;
+    z-index: 50;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 30px 0;
+    margin-top: 100px;
+}
+.footer .col{
+    font-size: 20px;
+    color: white;
+    height: 120px;
+}
+.footer .column_3{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 85px;
+
+}
+.footer .column_3 .credit{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 22px;
+    font-weight: 200;
+    letter-spacing: 1.3px;
+}   
+.footer .social_links{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+}
+.footer .icon{
+    display: inline-block;
+    padding: 14px;
+    padding-left: 25px;
+    width: 70px;
+    height: 40px;
+    font-size: 20px;
+    box-sizing: border-box;
+    color: white;
+    background-color: #303030;
+    margin:5px 10px 5px 0 ;
+    box-shadow: 0 0 10px #000;
+}
+.footer .icon:hover{
+    background-color: #ffc20d;
+    color: #1a1a1a;
+}
+.footer .email{
+    padding: 10px 2px;
+    width: 345px;
+    height: 40px;
+    font-size: 20px;
+    box-sizing: border-box;
+    margin-right: 15px;
+    color: white;
+}
+.footer .email_text{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    letter-spacing: 1px;
+}
+.footer .email .fas{
+    padding-right: 10px;
+}
+.footer .email:hover{
+    color: #ffc20d
+}
+
+.logo_btm{
+    width: 300px;
+}
+.luca_btm{
+    height: 100px;
+}
+
 
 /* 
  * PAGE LAYOUT ANIMATION

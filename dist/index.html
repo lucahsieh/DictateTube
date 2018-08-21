@@ -1,65 +1,250 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i|Roboto+Mono:100,100i,300,300i,400,400i,500,500i,700,700i|Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/loader.css">
+    <title>DictateTube</title>
+</head>
+<body class="body" data-subtitlepage="" data-videoID="">
+    <!-- Loader -->
+    <div class="loader">
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/5.3.1/firebase-app.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/5.3.1/firebase-auth.js"></script>
-    <script defer src="/__/firebase/5.3.1/firebase-database.js"></script>
-    <script defer src="/__/firebase/5.3.1/firebase-messaging.js"></script>
-    <script defer src="/__/firebase/5.3.1/firebase-storage.js"></script>
-    <!-- initialize the SDK after all desired features are loaded -->
-    <script defer src="/__/firebase/init.js"></script>
+        <!-- 
+        <div class="loader-background">
+            <div class="group"> 
+                    <div class="bigSqr">
+                    <div class="square first"></div>
+                    <div class="square second"></div>
+                    <div class="square third"></div>
+                    <div class="square fourth"></div>
+                    </div>
+                    <div class="text">loading</div>
+            </div>
+        </div> -->
 
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
     </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
+    <div class="wraper">
+        
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+        <!-- Background Video -->
+        <div class="video-background">
+            <div class="video-foreground">
+                <div id="player1"></div>
+            </div>
+        </div>
+        
+        <!-- Header -->
+        <div class="header">
+            <div class="container">
+                <div class="column column_1">
+                    <img class="logo" src="pic/logo.png" alt="logo">
+                </div>
+                <div class="column column_2"></div>
+                <div class="column column_3">
+                    <form>
+                        <input class="text search_text" type="text" placeholder="search video on Youtube" value="">
+                        <button class="submit search_submit" type="submit" value="SEARCH">SEARCH</button>
+                    </form>
+                </div>
+                <div class="column column_4"></div>
+                <div class="column column_5 account">
+                    <!-- <i class="material-icons">account_circle</i> -->
+                </div>
+            </div>
+        </div>
 
-        try {
-          let app = firebase.app();
-          let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
-          document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
-        }
-      });
-    </script>
-  </body>
+
+        <!-- Index Page -->
+        <div class="index hide">
+            <!-- 
+            <div class="container">
+                <h1 class="welcome">Welcome,</h1>
+                <h2 class="content">DictateTube helps you to improve your English listening, spelling, writing and typing skills by listening and typing each letter you hear. You can choose videoes that you like on YouTube to start your dictation.</h2>
+            </div> 
+            -->
+        </div>
+
+        <!-- Search Result -->
+        <div class="searchResult hide">
+
+            <!-- 
+            <div class="container">
+                <div class="row row_0">
+                    <p class="title">SEARCH RESULT</p>
+                </div>
+                <div class="row row_1">
+
+                    <div class="result_item" data-videoId="">
+                        <div class="image" style="background-image: url(pic/hqdefault.jpg);"></div>
+                        <div class="overlay"></div>
+                        <div class="text"><p class="title_search" >New York City Vacation Travel Guide | Expedia</p></div>
+                    </div>
+                </div>
+                <div class="row row_2">
+                    <div class="search__btn search__btn--prev" data-goto="">
+                            <img class="arrow_white"src="pic/keyboard-left-arrow-button-white.png" alt="prev">
+                            <span class="results__btn_text">PREV</span>
+                            <img class="arrow_white"src="pic/keyboard-right-arrow-button-white.png" alt="next">
+                    </div>
+                    <div class="search__btn search__btn--next" data-goto="">
+                            <img class="arrow_white"src="pic/keyboard-left-arrow-button-white.png" alt="prev">
+                            <span class="results__btn_text">NEXT</span>
+                            <img class="arrow_white"src="pic/keyboard-right-arrow-button-white.png" alt="next">
+                    </div>
+
+                </div>
+
+            </div> 
+            -->
+
+        </div>
+
+        <!-- Recommended -->
+        <div class="recommended hide">
+            
+                <!-- 
+                <div class="container">
+                    <div class="row row_0">
+                        <p class="title">RECOMMENDATIONS</p>
+                    </div>
+                    <div class="row row_1">
+    
+                        <div class="recommended_item" data-videoId="">
+                            <div class="image" style="background-image: url(pic/hqdefault.jpg);"></div>
+                            <div class="overlay"></div>
+                            <div class="text"><p class="title_recommended" >New York City Vacation Travel Guide | Expedia</p></div>
+                        </div>
+                    </div>
+                    <div class="row row_2">
+                        <div class="recommended__btn recommended__btn--prev" data-goto="">
+                                <img class="arrow_white"src="pic/keyboard-left-arrow-button-white.png" alt="prev">
+                                <span class="recommended__btn_text">PREV</span>
+                                <img class="arrow_white"src="pic/keyboard-right-arrow-button-white.png" alt="next">
+                        </div>
+                        <div class="recommended__btn recommended__btn--next" data-goto="">
+                                <img class="arrow_white"src="pic/keyboard-left-arrow-button-white.png" alt="prev">
+                                <span class="recommended__btn_text">NEXT</span>
+                                <img class="arrow_white"src="pic/keyboard-right-arrow-button-white.png" alt="next">
+                        </div>
+                    </div>
+                </div>  
+                -->
+           
+        </div> 
+
+        <!-- Video Pannel -->
+        <div class="pannelControl hide">
+            <div class="row">
+                
+                <!-- Left pannel -->
+                <div class="left_pannel_controller"  data-currentPage="">
+                <!-- 
+                <div class="left_pannel pannel">
+
+                    <div class="currentInfo">
+                        <p class="title">SUBTITLE #</p>
+                        <div class="value">
+                            <p class="currentPage">07<p class="totalPage"> / 145</p></p>
+                        </div>
+                    </div>
+
+                    <div class="pannel__btn pannel__btn--repl" data-goto="">
+                            <img class="arrow_white"src="pic/replay-white.png" alt="prev">
+                            <span class="pannel__btn_text">REPLAY</span>
+                    </div>
+
+                    <div class="pannel__btn pannel__btn--prev" data-goto="">
+                            <img class="arrow_white"src="pic/keyboard-left-arrow-button-white.png" alt="prev">
+                            <span class="pannel__btn_text">PREV</span>
+                    </div>
+                </div> 
+                -->
+                </div>
+
+                <!-- Center pannel -->
+                <div class="center_pannel_controller"  data-currentPage="">
+                    
+                    <!-- <div class="center pannel"> -->
+                        <div id="player2"></div>
+                        <!-- <div class="playButton" data-page=""><p>PLAY</p></div> -->
+                    <!-- </div> -->
+
+                </div>
+
+
+                <div class="right_pannel_controller"  data-currentPage="">
+                    <!-- Right pannel -->
+                    <!-- 
+                    <div class="right_pannel pannel">
+                        <div class="pageLink">
+                            <ul>
+                                <li class="pages finished" data-goto="">1</li>
+                                <li class="pages" data-goto="">2</li>
+                                <li class="pages" data-goto="">3</li>
+                                <li class="pages" data-goto="">191</li>
+                                <li class="pages current" data-goto="">201</li>
+                                <li class="pages" data-goto="">8</li>
+                                <li class="pages" data-goto="">9</li>
+                                <li class="pages" data-goto="">10</li>
+                                <li class="pages" data-goto="">191</li>
+                            </ul>
+                        </div>
+                        <div class="pannel__btn pannel__btn--next" data-goto="">
+                                <span class="pannel__btn_text">NEXT</span>
+                                <img class="arrow_white"src="pic/keyboard-right-arrow-button-white.png" alt="next">
+                        </div>
+                    </div> 
+                    -->
+                </div>
+
+
+
+            </div>
+        </div>
+
+        <!-- Subtitle display -->
+        <div class="subtitle hide">
+            <!-- 
+            <div class="container" data-page="">
+                <p  class="subtitle_text" data-page="">Returns a collection of search results that match the query parameters specified in the API request.</p>
+            </div> 
+            -->
+        </div>
+
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <div class="container">
+                <!-- <div class="column_1">
+                    <img class="logo_btm" src="pic/logo.png" alt="logo">
+                </div> -->
+                <div class="col column_2">
+                        <img class="luca_btm" src="pic/luca_white.png" alt="luca">
+                </div>
+                <div class="col column_3">
+                    <p class="credit">© 2018 by Luca Hsieh. Powered by YouTube.</p>
+                    <div class="email">
+                        <a href="mailto:chungju.hsieh.ca@gmail.com"><i class="fas fa-envelope"></i>
+                            <i class="email_text">chungju.hsieh.ca@gmail.com</i>
+                        </a>
+                    </div>    
+                    
+                    <div class="social_links">
+                        <a href="https://github.com/lucahsieh"><i class="icon fab fa-github fa-lg"></i></a>
+                        <a href="https://www.linkedin.com/in/lucahsieh/"><i class="icon fab fa-linkedin-in fa-lg"></i></a>
+                        <a href=""><i class="icon fas fa-external-link-alt fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+<script type="text/javascript" src="js/bundle.js"></script></body>
 </html>

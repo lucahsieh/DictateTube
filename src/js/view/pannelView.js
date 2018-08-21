@@ -26,7 +26,7 @@ export const updateLeftPannel = (subList, page) => {
         </div>
 
         <div class="pannel__btn pannel__btn--repl" data-goto="${page}">
-                <img class="arrow_white"src="pic/replay-white.png" alt="prev">
+                <i class="material-icons replayBut">replay</i>
                 <span class="pannel__btn_text">REPLAY</span>
         </div>
         ${page - 1 >= 0 ? createPannelButton('prev', page) : ''}
@@ -91,9 +91,9 @@ const createPagesItem = (subList, page) => {
 const createPannelButton = (type, page) => {
     const markup = `
     <div class="pannel__btn pannel__btn--${type}" data-goto="${type === 'prev' ? page - 1 : page + 1}">
-        ${type === 'prev' ? '<img class="arrow_white"src="pic/keyboard-left-arrow-button-white.png" alt="prev">' : ''}
+        ${type === 'prev' ? '<i class="material-icons ">chevron_left</i>' : ''}
         <span class="pannel__btn_text">${type.toUpperCase()}</span>
-        ${type === 'next' ? '<img class="arrow_white"src="pic/keyboard-right-arrow-button-white.png" alt="next">' : ''}
+        ${type === 'next' ? '<i class="material-icons ">chevron_right</i>' : ''}
     </div>`;
     return markup;
 }
