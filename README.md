@@ -1,6 +1,7 @@
 # DictateTube
 
-DictateTube helps you to improve your English listening, spelling, writing and typing skills by listening and typing each letter you hear. You can choose videoes that you like on YouTube to start your dictation.
+DictateTube helps you to improve your English listening, spelling, writing and typing skills by listening and typing each letter you hear. You can choose videoes that you like on YouTube to start your dictation. 
+[Try this web app](https://dictatetube.firebaseapp.com/)
 
 ## Built With
 
