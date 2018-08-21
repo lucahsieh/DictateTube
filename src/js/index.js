@@ -9,6 +9,7 @@ import * as pannelView from './view/pannelView';
 import Recommend from './module/Recommend';
 import * as recommendView from './view/recommendView';
 import firebase from 'firebase';
+import key from './config';
 
 // Gobal object to store state
 const state = {
@@ -32,7 +33,7 @@ const setUpEnvironment = () => {
 
     // Initialize firebase
     firebase.initializeApp({
-        apiKey: "AIzaSyDuvJxuQN-pGyrKPt1Ja8ALS8hCuva49HQ",
+        apiKey: key.FirebaseKEY,
         authDomain: "dictatetube.firebaseapp.com",
         projectId: "dictatetube"
     });
